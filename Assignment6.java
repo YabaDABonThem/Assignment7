@@ -71,22 +71,28 @@ public class Assignment6 {
 
 		int qSize = q.size();
 
+		// we're storing half the queue in the stack, and basically throwing half the queue's items to the back
 		for (int j = 0; j < qSize / 2; ++j){
 			Integer i = q.remove();
 			s.add(i);
 			q.add(i);
 		}
 
+		// if we're comparing an odd amount of items we need to skip the middle.
 		if (qSize % 2 == 1) {
 			q.add(q.remove());
 		}
 
+		// we go through the second half of the queue and compare the stack's items to the "second half"
+		// of the original q until s runs out of items.
 		boolean result = true;
 		while (!s.isEmpty()) {
 			Integer i = q.remove();
+			// we shift the first item back everytime until it retains the original structure.
 			q.add(i);
 
 			if (!s.pop().equals(i)) {
+				// we don't return here because we need to go through every cycle of adding q's first item to the end.
 				result = false;
 			}
 		}
